@@ -15,12 +15,14 @@ FROM php:8.3-cli-alpine
 WORKDIR /app
 
 RUN apk add --no-cache \
+        icu-dev \
         libzip-dev \
         libxml2-dev \
         oniguruma-dev \
         sqlite-dev \
     && docker-php-ext-install \
         bcmath \
+        intl \
         mbstring \
         pdo_sqlite \
         xml \
