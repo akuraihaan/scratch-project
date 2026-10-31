@@ -12,6 +12,12 @@ export CACHE_STORE="${CACHE_STORE:-database}"
 export QUEUE_CONNECTION="${QUEUE_CONNECTION:-sync}"
 
 mkdir -p /data/uploads "$(dirname "$DB_DATABASE")"
+mkdir -p \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/testing \
+    storage/framework/views \
+    storage/logs
 touch "$DB_DATABASE"
 
 rm -rf storage/app/public
