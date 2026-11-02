@@ -186,13 +186,14 @@ try {
         $inserted[$table] = (int) $pdo->query("SELECT COUNT(*) FROM `{$table}`")->fetchColumn();
     }
 
-    $pdo->commit();
-    $pdo->exec('PRAGMA foreign_keys = ON');
     $foreignKeyProblems = $pdo->query('PRAGMA foreign_key_check')->fetchAll(PDO::FETCH_ASSOC);
 
     if ($foreignKeyProblems !== []) {
         throw new RuntimeException('Foreign-key verification failed after import.');
     }
+
+    $pdo->commit();
+    $pdo->exec('PRAGMA foreign_keys = ON');
 
     fwrite(STDOUT, json_encode(['imported' => $inserted], JSON_THROW_ON_ERROR).PHP_EOL);
 } catch (Throwable $exception) {
